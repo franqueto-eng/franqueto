@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cantina del Santuario | Villa Serrana</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Animación de scroll suave */
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9f6f0;
+            color: #3c2f1e;
+            overflow-x: hidden;
+        }
+
+        /* --- ANIMACIONES --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HERO SECCIÓN --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 5%;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.7);
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-info {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-info-item svg { width: 22px; height: 22px; fill: white; }
+
+        .btn-hero {
+            background: #8B5A2B;
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s, background 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            background: #a67c52;
+        }
+
+        /* --- NAVEGACIÓN (Sticky / Scroll) --- */
+        nav {
+            position: sticky; 
+            top: 0; 
+            background: #fff;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 15px 5%; 
+            z-index: 1000; 
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem; color: #5d4037; font-style: italic; font-weight: 700;
+        }
+
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { text-decoration: none; color: #3c2f1e; font-size: 0.95rem; font-weight: 500; }
+
+        /* --- BOTÓN WHATSAPP --- */
+        .wpp-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            padding: 12px 25px;
+            box-shadow: 2px 4px 15px rgba(0,0,0,0.2);
+            z-index: 2000;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+        .wpp-float img { width: 25px; height: 25px; }
+
+        /* --- SECCIONES --- */
+        section { padding: 100px 5%; max-width: 1280px; margin: 0 auto; scroll-margin-top: 80px; }
+        h2 { font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 60px; font-size: 3rem; color: #4a3f35; }
+
+        /* SERVICIOS Y MASCOTAS */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Forzamos 3 columnas */
+            gap: 30px;
+            margin-bottom: 30px; /* Separación con el bloque de mascotas */
+        }
+        .detail-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .detail-card:hover { transform: translateY(-5px); }
+        .detail-card strong { display: block; margin-bottom: 15px; font-size: 1.1rem; color: #8B5A2B; }
+        .detail-item { font-size: 0.95rem; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; }
+
+        /* CUADRO DE MASCOTAS MODIFICADO */
+        .pet-card-full {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px dashed #8B5A2B;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            grid-column: 1 / -1; /* Ocupa todo el ancho */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .pet-card-full span { font-size: 1.3rem; font-weight: 600; color: #8B5A2B; margin-top: 15px; }
+        .pet-card-full .paw { font-size: 3rem; color: #8B5A2B; }
+
+        /* HORARIOS */
+        .schedule-card {
+            background: white; padding: 50px; border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            max-width: 600px; margin: 60px auto 0 auto;
+        }
+        .schedule-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; }
+
+        /* MENÚ COMPLETO */
+        .menu-container { background: white; padding: 60px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); max-width: 1000px; margin: 0 auto; }
+        .menu-section h3 { border-bottom: 2px solid #f0e6d2; margin: 30px 0 15px 0; color: #8B5A2B; letter-spacing: 2px; }
+        .menu-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #eee; align-items: baseline; }
+        .menu-item .desc { font-size: 0.85rem; color: #777; display: block; margin-top: 4px; line-height: 1.4; }
+
+        /* RESERVAS */
+        .reserve-card { max-width: 550px; margin: 0 auto; background: #fff; padding: 45px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        input, select { width: 100%; padding: 14px; margin-bottom: 18px; border: 1px solid #ddd; border-radius: 12px; font-family: inherit; }
+
+        /* RESEÑAS */
+        .stars { font-size: 3rem; color: #ddd; text-align: center; margin-bottom: 20px; cursor: pointer; }
+        .review-card { background: white; padding: 30px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+
+        footer { background: #3c2f1e; color: #d4c3a8; text-align: center; padding: 60px; margin-top: 80px; }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/59891732223?text=Hola! Me gustaría hacer una consulta." class="wpp-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"> WhatsApp
+    </a>
+
+    <header class="hero">
+        <h1>La Cantina del Santuario</h1>
+        <p class="subtitle">Un rincón gastronómico único en Villa Serrana</p>
+        <div class="hero-info">
+            <div class="hero-info-item">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                Villa Serrana, Lavalleja
+            </div>
+            <a href="tel:091732223" class="hero-info-item" style="text-decoration: none; color: white;">
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.26 1.12.32 2.33.5 3.57.5.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.18 2.45.5 3.57.1.35.01.74-.26 1.02l-2.2 2.2z"/></svg>
+                091 732 223
+            </a>
+        </div>
+        <a href="#menu" class="btn-hero">Descubrir Nuestra Carta</a>
+    </header>
+
+    <nav>
+        <div class="nav-logo">La Cantina del Santuario</div>
+        <div class="nav-links">
+            <a href="#menu">Menú</a>
+            <a href="#reservas">Reservas</a>
+            <a href="#reseñas">Reseñas</a>
+        </div>
+    </nav>
+
+    <section id="servicios">
+        <h2>Servicios y Detalles</h2>
+        <div class="details-grid">
+            <div class="detail-card">
+                <strong>Accesibilidad</strong>
+                <p class="detail-item">✅ Espacio accesible para sillas de ruedas</p>
+                <p class="detail-item">✅ Sanitarios adaptados</p>
+            </div>
+            <div class="detail-card">
+                <strong>Opciones de servicio</strong>
+                <p class="detail-item">✅ Asientos al aire libre</p>
+                <p class="detail-item">✅ Para llevar / Consumo en el lugar</p>
+            </div>
+            <div class="detail-card">
+                <strong>Aspectos destacados</strong>
+                <p class="detail-item">✅ Chimenea acogedora</p>
+                <p class="detail-item">✅ Variedad de postres caseros</p>
+            </div>
+        </div>
+        
+        <div class="pet-card-full">
+            <div class="paw">🐾</div>
+            <span>¡Sus mascotas son bienvenidas!</span>
+        </div>
+
+        <div class="schedule-card">
+            <strong style="display:block; margin-bottom:20px; color:#8B5A2B; font-size:1.2rem; text-align:center;">Horarios de Atención</strong>
+            <div class="schedule-row"><span class="day-name">viernes</span><span class="day-info">2:00 p.m. – 10:00 p.m.</span></div>
+            <div class="schedule-row"><span class="day-name">sábado</span><span class="day-info">12:00 p.m. – 5:00 p.m.<br>7:30 p.m. – 11:00 p.m.</span></div>
+            <div class="schedule-row"><span class="day-name">domingo</span><span class="day-info">12:00 p.m. – 6:00 p.m.</span></div>
+            <div class="schedule-row"><span class="day-name">lunes a jueves (Turismo)</span><span class="day-info">Cerrado</span></div>
+        </div>
+    </section>
+
+    <section id="menu" style="background: #f4ede4;">
+        <h2>🍽️ Nuestra Carta</h2>
+        <div class="menu-container">
+            <div class="menu-section">
+                <h3>SALADOS</h3>
+                <div class="menu-item">
+                    <div>Canelones de espinaca <span class="desc">Con salsa filetto y parmesano</span></div>
+                    <span>$480</span>
+                </div>
+                <div class="menu-item">
+                    <div>Hamburguesas completas al pan <span class="desc">Opciones: Quinoa/Calabaza, Quinoa/Espinaca, Garbanzo o Lenteja</span></div>
+                    <span>$480</span>
+                </div>
+                <div class="menu-item">
+                    <div>Pizzas individuales <span class="desc">Cebolla caramelizada, Aceitunas o Tomate fresco</span></div>
+                    <span>$380</span>
+                </div>
+                <div class="menu-item">
+                    <div>Sorrentinos caseros <span class="desc">Rellenos de Calabaza, muzzarella o ricota y nuez</span></div>
+                    <span>$420</span>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h3>DULCES</h3>
+                <div class="menu-item"><div>Brownie de chocolate con helado y DDL</div><span>$250</span></div>
+                <div class="menu-item"><div>Tarta de limón o naranja con chía</div><span>$150</span></div>
+                <div class="menu-item"><div>Crumble de manzana con helado</div><span>$250</span></div>
+            </div>
+
+            <div class="menu-section">
+                <h3>BEBIDAS</h3>
+                <div class="menu-item"><div>Agua nativa con o sin gas</div><span>$100</span></div>
+                <div class="menu-item"><div>Limonada con menta y jengibre (Vaso)</div><span>$120</span></div>
+                <div class="menu-item"><div>Jarra de Limonada</div><span>$350</span></div>
+                <div class="menu-item"><div>Batido de acai, naranja y jengibre</div><span>$250</span></div>
+                <div class="menu-item"><div>Café / Té / Té frío (Verde, Hibiscus, Negro)</div><span>$100</span></div>
+                <div class="menu-item"><div>Frappuccino / Chocolate caliente</div><span>$180</span></div>
+            </div>
+
+            <div class="menu-section">
+                <h3>VINO Y CERVEZA</h3>
+                <div class="menu-item"><div>Albariño Atlántica Gourmet (Botella)</div><span>$500</span></div>
+                <div class="menu-item"><div>C. Sauvignon Bodega Traversa (Copa)</div><span>$150</span></div>
+                <div class="menu-item"><div>C. Sauvignon Reservado Roble (Botella)</div><span>$480</span></div>
+                <div class="menu-item"><div>Rosé Corte Cabernet Franc (Botella)</div><span>$410</span></div>
+                <div class="menu-item"><div>Malbec Atlántica Gourmet (Botella)</div><span>$580</span></div>
+                <div class="menu-item"><div>Schneider 500ml / Corona 355ml</div><span>$150</span></div>
+                <div class="menu-item"><div>Artesanal Villa Serrana (Stout/IPA/Scotish)</div><span>$220</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reservas">
+        <h2>📅 Reservas</h2>
+        <div class="reserve-card">
+            <input type="text" id="res-name" placeholder="Nombre y Apellido">
+            <input type="date" id="res-date">
+            <select id="res-time">
+                <option value="">Selecciona horario</option>
+                <option value="12:00">12:00 hs</option>
+                <option value="13:30">13:30 hs</option>
+                <option value="20:00">20:00 hs</option>
+                <option value="21:30">21:30 hs</option>
+            </select>
+            <button style="background:#25d366; width:100%; border:none; padding:15px; border-radius:12px; color:white; font-weight:600; cursor:pointer;" onclick="reservaWS()">Consultar Disponibilidad</button>
+        </div>
+    </section>
+
+    <section id="reseñas" style="background:#f4ede4;">
+        <h2>⭐ Reseñas de Visitantes</h2>
+        <div id="form-review" style="max-width:600px; margin:0 auto;">
+            <div id="review-input-container">
+                <div class="stars" id="star-input">
+                    <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+                </div>
+                <textarea id="rev-text" rows="4" placeholder="Comparte tu experiencia..." style="width:100%; padding:20px; border-radius:15px; border:1px solid #ddd; font-family:inherit;"></textarea>
+                <button id="btn-pub" onclick="saveReview()" style="margin-top:20px; background:#8B5A2B; color:white; border:none; padding:15px 40px; border-radius:50px; cursor:pointer; width:100%; font-weight:600;">Publicar Reseña</button>
+            </div>
+            <div id="user-review-status" style="display:none; text-align:center; padding:20px; background:white; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.05);">
+                <p style="font-weight:600; margin-bottom:15px;">Ya has publicado una reseña.</p>
+                <div style="display:flex; gap:10px; justify-content:center;">
+                    <button onclick="editMyReview()" style="background:#5d4037; color:white; border:none; padding:10px 25px; border-radius:50px; cursor:pointer;">Editar</button>
+                    <button onclick="deleteMyReview()" style="background:#b03a2e; color:white; border:none; padding:10px 25px; border-radius:50px; cursor:pointer;">Borrar</button>
+                </div>
+            </div>
+        </div>
+        <div id="rev-list" style="margin-top:60px; display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:25px;"></div>
+    </section>
+
+    <footer>
+        <h2>La Cantina del Santuario</h2>
+        <p>Villa Serrana, Lavalleja, Uruguay</p>
+    </footer>
+
+    <script>
+        // URL DE TU BASE DE DATOS
+        const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwDm8eYjvQK7TgwMYSfGDkgzflTQx_vhOYOnetflmTwpcftztwWnIv6-SNEWZ0xHXTa/exec'; 
+        
+        let rating = 0;
+        let isEditing = false;
+
+        document.querySelectorAll('#star-input span').forEach(s => {
+            s.onclick = (e) => {
+                rating = e.target.dataset.v;
+                updateStarDisplay(rating);
+            }
+        });
+
+        function updateStarDisplay(val) {
+            document.querySelectorAll('#star-input span').forEach(st => st.style.color = st.dataset.v <= val ? '#d4a017' : '#ddd');
+        }
+
+        function reservaWS() {
+            const n = document.getElementById('res-name').value;
+            const d = document.getElementById('res-date').value;
+            const t = document.getElementById('res-time').value;
+            if(!n || !d || !t) return alert("Por favor completa nombre, fecha y hora.");
+            const mensaje = `Hola! Soy ${n}. Me gustaría consultar disponibilidad para el día ${d} a las ${t}hs.`;
+            window.open(`https://wa.me/59891732223?text=${encodeURIComponent(mensaje)}`, '_blank');
+        }
+
+        async function saveReview() {
+            const text = document.getElementById('rev-text').value;
+            if(!rating || text.length < 5) return alert("Escribe tu reseña.");
+            const btn = document.getElementById('btn-pub');
+            btn.innerText = "Procesando..."; btn.disabled = true;
+            let userId = localStorage.getItem('review_user_id') || 'user_' + Math.random().toString(36).substr(2, 9);
+            const payload = { rating, text, userId, action: isEditing ? 'edit' : 'add' };
+            try {
+                await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+                localStorage.setItem('has_reviewed', 'true');
+                localStorage.setItem('my_rating', rating);
+                localStorage.setItem('my_text', text);
+                localStorage.setItem('review_user_id', userId);
+                alert("¡Reseña guardada!");
+                location.reload();
+            } catch (e) { alert("Error al conectar."); btn.disabled = false; }
+        }
+
+        function editMyReview() {
+            isEditing = true;
+            rating = localStorage.getItem('my_rating');
+            document.getElementById('rev-text').value = localStorage.getItem('my_text');
+            updateStarDisplay(rating);
+            document.getElementById('review-input-container').style.display = 'block';
+            document.getElementById('user-review-status').style.display = 'none';
+        }
+
+        async function deleteMyReview() {
+            if(!confirm("¿Borrar reseña?")) return;
+            const payload = { userId: localStorage.getItem('review_user_id'), action: 'delete' };
+            try {
+                await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+                localStorage.removeItem('has_reviewed');
+                alert("Eliminada.");
+                location.reload();
+            } catch (e) { alert("Error."); }
+        }
+
+        async function renderReviews() {
+            if (localStorage.getItem('has_reviewed')) {
+                document.getElementById('review-input-container').style.display = 'none';
+                document.getElementById('user-review-status').style.display = 'block';
+            }
+            try {
+                const res = await fetch(SHEET_URL);
+                const data = await res.json();
+                document.getElementById('rev-list').innerHTML = data.reverse().map(r => `
+                    <div class="review-card">
+                        <div style="color:#d4a017; font-size:1.5rem; margin-bottom:10px;">${'★'.repeat(r.rating)}</div>
+                        <p>${r.text}</p>
+                    </div>
+                `).join('');
+            } catch (e) { console.error("Error al cargar reseñas."); }
+        }
+
+        window.onload = renderReviews;
+    </script>
+</body>
+</html>
